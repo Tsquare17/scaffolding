@@ -34,8 +34,8 @@ class MakeSet extends Command
      */
     public function configure(): void
     {
-        $this->addArgument('set', InputArgument::REQUIRED, 'Path to the template set.');
         $this->addArgument('name', InputArgument::REQUIRED, 'Class name.');
+        $this->addArgument('set', InputArgument::REQUIRED, 'Path to the template set.');
     }
 
     /**

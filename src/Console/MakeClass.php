@@ -33,8 +33,8 @@ class MakeClass extends Command
      */
     public function configure(): void
     {
-        $this->addArgument('template', InputArgument::REQUIRED, 'Name of the template.');
         $this->addArgument('name', InputArgument::REQUIRED, 'Name of the class.');
+        $this->addArgument('template', InputArgument::REQUIRED, 'Name of the template.');
     }
 
     /**

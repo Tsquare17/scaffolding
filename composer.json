@@ -1,0 +1,24 @@
+{
+  "name": "tsquare/scaffolding",
+  "description": "Generate scaffolding.",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Trevor Thompson",
+      "email": "trevor@trevomail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tsquare\\Scaffolding\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.4",
+    "symfony/console": "^5.1",
+    "tsquare/class-generator": "^1.0"
+  },
+  "scripts": {
+  }
+}

@@ -26,7 +26,7 @@ $template->appDir(dirname(__DIR__, 1));
 /**
  * Define the base path for the class.
  */
-$template->path(dirname(__DIR__, 1) . '/Sample');
+$template->path(dirname(__DIR__, 1) . '/DestinationDir');
 
 
 /**
@@ -98,7 +98,7 @@ $template->appDir(dirname(__DIR__, 1));
 /**
  * Define the base path for the file.
  */
-$template->path(dirname(__DIR__, 1) . '/Sample');
+$template->path(dirname(__DIR__, 1) . '/DestinationDir');
 
 
 /**
@@ -113,11 +113,12 @@ $template->fileName('default');
 $template->fileContent('
 namespace App\Foo\{name};
 
-$foo = {underscore}s;
-$bar = {dash};
+$foo = \'{underscore}s\';
+$bar = \'{dash}\';
 ');
 ```
 
+* Create a file in the root of your application, e.g., scaffolding.php
 ```php
 #!/usr/bin/env php
 <?php
@@ -128,4 +129,23 @@ use Tsquare\Scaffolding\App;
 
 $command = new App('1.0.0', __DIR__ . '/template-config');
 $command->run();
+```
+
+* The following command will make a file supplying the name SampleFile, using the template Example.php
+
+    `php scaffolding.php make:file SampleFile Example`
+
+
+* The following command will create a set of files, using the templates in the files directory, within template-config/.
+
+    `php scaffolding.php make:set Sample files`
+
+
+* The following template replace tokens are available.
+```
+{name}       : ExampleName
+{camel}      : exampleName
+{pascal}     : ExampleName
+{underscore} : example_name
+{dash}       : example-name
 ```

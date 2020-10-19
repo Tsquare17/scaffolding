@@ -2,7 +2,7 @@
 
 namespace Tsquare\Scaffolding;
 
-use Tsquare\Scaffolding\Console\MakeClass;
+use Tsquare\Scaffolding\Console\MakeFile;
 use Tsquare\Scaffolding\Console\MakeSet;
 use Symfony\Component\Console\Application;
 
@@ -12,7 +12,7 @@ class App extends Application
     {
         parent::__construct('Scaffolding', $version);
 
-        $this->add(new MakeClass($templatePath));
+        $this->add(new MakeFile($templatePath));
         $this->add(new MakeSet($templatePath));
     }
 }

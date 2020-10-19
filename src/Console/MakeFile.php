@@ -2,15 +2,15 @@
 
 namespace Tsquare\Scaffolding\Console;
 
-use Tsquare\ClassGenerator\ClassGenerator;
-use Tsquare\ClassGenerator\ClassTemplate;
+use Tsquare\FileGenerator\FileGenerator;
+use Tsquare\FileGenerator\FileTemplate;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class MakeClass extends Command
+class MakeFile extends Command
 {
     protected string $templatePath;
 
@@ -23,9 +23,9 @@ class MakeClass extends Command
     {
         $this->templatePath = $templatePath;
 
-        $this->setDescription('Generate a class file.');
+        $this->setDescription('Generate a file using a template config file.');
 
-        parent::__construct('make:class');
+        parent::__construct('make:file');
     }
 
     /**
@@ -33,8 +33,8 @@ class MakeClass extends Command
      */
     public function configure(): void
     {
-        $this->addArgument('name', InputArgument::REQUIRED, 'Name of the class.');
-        $this->addArgument('template', InputArgument::REQUIRED, 'Name of the template.');
+        $this->addArgument('name', InputArgument::REQUIRED, 'Name');
+        $this->addArgument('template', InputArgument::REQUIRED, 'Name of the template');
     }
 
     /**
@@ -46,20 +46,20 @@ class MakeClass extends Command
     public function execute(InputInterface $input, OutputInterface $output): int
     {
 
-        $template = ClassTemplate::init($this->templatePath . '/' . $input->getArgument('template') . '.php');
+        $template = FileTemplate::init($this->templatePath . '/' . $input->getArgument('template') . '.php');
 
-        $template->name($input->getArgument('name'));
+        $template->className($input->getArgument('name'));
 
-        $generator = new ClassGenerator($template);
+        $generator = new FileGenerator($template);
 
         $write = $generator->create();
 
         if (!$write) {
-            $output->writeln("<error>Failed to write to {$generator->getClassPathString()}</>");
+            $output->writeln("<error>Failed to write to {$generator->getPathString()}</>");
             return 0;
         }
 
-        $output->writeln("<info>Created class {$generator->getClassPathString()}</>");
+        $output->writeln("<info>Created {$generator->getPathString()}</>");
 
         return 0;
     }

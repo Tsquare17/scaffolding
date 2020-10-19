@@ -17,8 +17,17 @@
   "require": {
     "php": "^7.4",
     "symfony/console": "^5.1",
-    "tsquare/class-generator": "^1.0"
+    "tsquare/file-generator": "dev-master"
   },
   "scripts": {
-  }
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../class-generator/src",
+      "options": {
+        "symlink": true
+      }
+    }
+  ]
 }

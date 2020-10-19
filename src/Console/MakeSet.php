@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Tsquare\Scaffolding\Console;
-
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Tsquare\ClassGenerator\ClassGenerator;
-use Tsquare\ClassGenerator\ClassTemplate;
+use Tsquare\FileGenerator\FileGenerator;
+use Tsquare\FileGenerator\FileTemplate;
 
 class MakeSet extends Command
 {
@@ -24,7 +22,7 @@ class MakeSet extends Command
     {
         $this->templatePath = $templatePath;
 
-        $this->setDescription('Generate class files using a set of templates.');
+        $this->setDescription('Generate files using a set of templates config files.');
 
         parent::__construct('make:set');
     }
@@ -34,8 +32,8 @@ class MakeSet extends Command
      */
     public function configure(): void
     {
-        $this->addArgument('name', InputArgument::REQUIRED, 'Class name.');
-        $this->addArgument('set', InputArgument::REQUIRED, 'Path to the template set.');
+        $this->addArgument('name', InputArgument::REQUIRED, 'Name');
+        $this->addArgument('set', InputArgument::REQUIRED, 'Path to the template set');
     }
 
     /**
@@ -58,18 +56,18 @@ class MakeSet extends Command
 
         foreach ($files as $file) {
 
-            $template = ClassTemplate::init($dir . '/' . $file);
+            $template = FileTemplate::init($dir . '/' . $file);
 
-            $template->name($input->getArgument('name'));
+            $template->className($input->getArgument('name'));
 
-            $generator = new ClassGenerator($template);
+            $generator = new FileGenerator($template);
 
             $write = $generator->create();
 
             if (!$write) {
-                $output->writeln("<error>Failed to write to {$generator->getClassPathString()}</>");
+                $output->writeln("<error>Failed to write to {$generator->getPathString()}</>");
             } else {
-                $output->writeln("<info>Created class {$generator->getClassPathString()}</>");
+                $output->writeln("<info>Created {$generator->getPathString()}</>");
             }
         }
 

@@ -44,7 +44,6 @@ class MakeSet extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-
         $dir = $this->templatePath . '/' . $input->getArgument('set');
         if (!is_dir($dir)) {
             $output->writeln("<error>{$dir} does not exist.</>");
@@ -58,7 +57,7 @@ class MakeSet extends Command
 
             $template = FileTemplate::init($dir . '/' . $file);
 
-            $template->className($input->getArgument('name'));
+            $template->name($input->getArgument('name'));
 
             $generator = new FileGenerator($template);
 

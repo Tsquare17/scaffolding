@@ -45,10 +45,9 @@ class MakeFile extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-
         $template = FileTemplate::init($this->templatePath . '/' . $input->getArgument('template') . '.php');
 
-        $template->className($input->getArgument('name'));
+        $template->name($input->getArgument('name'));
 
         $generator = new FileGenerator($template);
 

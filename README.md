@@ -6,7 +6,7 @@
 `composer require tsquare/scaffolding`
 
 ### Usage:
-* Create a template file e.g., ./template-config/Example.php
+##### Create a template file e.g., ./template-config/Example.php
 ```php
 <?php
 
@@ -78,7 +78,7 @@ $template->body('
 ');
 ```
 
-* Alternatively, create non-class files, or classes using a single template block.
+##### Alternatively, create non-class files, or classes using a single template block.
 ```php
 <?php
 
@@ -118,7 +118,7 @@ $bar = \'{dash}\';
 ');
 ```
 
-* Create a file in the root of your application, e.g., scaffolding.php
+##### Create a file in the root of your application, e.g., scaffolding.php
 ```php
 #!/usr/bin/env php
 <?php
@@ -131,17 +131,17 @@ $command = new App('1.0.0', __DIR__ . '/template-config');
 $command->run();
 ```
 
-* The following command will make a file supplying the name SampleFile, using the template Example.php
+##### The following command will make a file supplying the name SampleFile, using the template Example.php
 
     `php scaffolding.php make:file SampleFile Example`
 
 
-* The following command will create a set of files, using the templates in the files directory, within template-config/.
+##### The following command will create a set of files, using the templates in the files directory, within template-config/.
 
     `php scaffolding.php make:set Sample files`
 
 
-* The following template replace tokens are available.
+##### The following template replace tokens are available.
 ```
 {name}       : ExampleName
 {camel}      : exampleName

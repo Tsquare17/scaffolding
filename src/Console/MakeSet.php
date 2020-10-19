@@ -54,7 +54,6 @@ class MakeSet extends Command
         $files = array_diff(scandir($dir), ['.', '..']);
 
         foreach ($files as $file) {
-
             $template = FileTemplate::init($dir . '/' . $file);
 
             $template->name($input->getArgument('name'));

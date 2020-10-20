@@ -33,7 +33,7 @@ $template->destinationPath(dirname(__DIR__, 1) . '/Sample');
 /**
  * Define the file name. If not defined, name will be used.
  */
-$template->fileName('{name}File');
+$template->fileName('{name}Extension');
 
 
 /**

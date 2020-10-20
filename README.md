@@ -31,7 +31,7 @@ $template->destinationPath(dirname(__DIR__, 1) . '/Sample');
 
 
 /**
- * Define the file name. If not defined, name will be used.
+ * Define the file name. If not defined, the name specified in the command will be used.
  */
 $template->fileName('{name}Extension');
 

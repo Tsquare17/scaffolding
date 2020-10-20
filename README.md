@@ -31,12 +31,6 @@ $template->destinationPath(dirname(__DIR__, 1) . '/Sample');
 
 
 /**
- * Define the name used to fill placeholders.
- */
-$template->name('Example');
-
-
-/**
  * Define the file name. If not defined, name will be used.
  */
 $template->fileName('{name}File');

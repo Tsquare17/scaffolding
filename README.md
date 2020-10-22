@@ -12,6 +12,7 @@
 <?php
 
 use Tsquare\FileGenerator\FileTemplate;
+use Tsquare\FileGenerator\FileEditor;
 
 /**
  * @var FileTemplate $template
@@ -44,7 +45,38 @@ namespace App\Foo\{name};
 
 $foo = \'{underscore}s\';
 $bar = \'{dash}\';
+
+function foo{name}() {
+    return true;
+}
+
 ');
+
+
+/*
+ * Editing actions can be added, that will be used if the file already exists.
+ */
+$editor = new FileEditor();
+
+$editor->insertBefore('
+function inserted{pascal}Function() {
+    return true;
+}
+
+', 'function foo{name}()');
+
+$editor->insertAfter('
+function another{pascal}Function()  {
+    return true;
+}
+', 'function foo{name}() {
+        return true;
+    }
+');
+
+$editor->replace('another{pascal}Function', 'someOther{pascal}Function');
+
+$template->ifFileExists($editor);
 ```
 
 ##### Create a file in the root of your application, e.g., scaffolding.php

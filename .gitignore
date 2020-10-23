@@ -4,3 +4,5 @@ composer.lock
 templates
 scaffolding.php
 Sample
+.php_cs.cache
+test.php

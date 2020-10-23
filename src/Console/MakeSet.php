@@ -58,6 +58,10 @@ class MakeSet extends Command
 
             $template->name($input->getArgument('name'));
 
+            if (!$template->getAppBasePath()) {
+                $template->appBasePath(getcwd());
+            }
+
             $generator = new FileGenerator($template);
 
             $write = $generator->create();

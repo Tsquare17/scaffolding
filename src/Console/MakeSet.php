@@ -71,12 +71,7 @@ class MakeSet extends Command
                 continue;
             }
 
-            if (is_file($generator->getPathString())) {
-                $output->writeln("<info>Edited {$generator->getPathString()}</>");
-                continue;
-            }
-
-            $output->writeln("<info>Created {$generator->getPathString()}</>");
+            $output->writeln("<info>{$generator->getPathString()}</>");
         }
 
         return 0;

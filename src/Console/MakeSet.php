@@ -68,9 +68,15 @@ class MakeSet extends Command
 
             if (!$write) {
                 $output->writeln("<error>Failed to write to {$generator->getPathString()}</>");
-            } else {
-                $output->writeln("<info>Created {$generator->getPathString()}</>");
+                continue;
             }
+
+            if (is_file($generator->getPathString())) {
+                $output->writeln("<info>Edited {$generator->getPathString()}</>");
+                continue;
+            }
+
+            $output->writeln("<info>Created {$generator->getPathString()}</>");
         }
 
         return 0;

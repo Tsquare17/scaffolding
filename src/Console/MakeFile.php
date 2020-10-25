@@ -61,7 +61,12 @@ class MakeFile extends Command
             return 0;
         }
 
-        $output->writeln("<info>Created {$generator->getPathString()}</>");
+        $message = "<info>Created {$generator->getPathString()}</>";
+        if (is_file($generator->getPathString())) {
+            $message = "<info>Edited {$generator->getPathString()}</>";
+        }
+
+        $output->writeln($message);
 
         return 0;
     }

@@ -8,11 +8,26 @@ use Symfony\Component\Console\Application;
 
 class App extends Application
 {
-    public function __construct($version, $templatePath, $appName = null)
-    {
-        parent::__construct($appName ?: 'Scaffolding', $version);
+    protected string $templatePath;
 
-        $this->add(new MakeFile($templatePath));
-        $this->add(new MakeSet($templatePath));
+    public function __construct($templatePath, $version = '1.0.0', $appName = 'Scaffolding')
+    {
+        parent::__construct($appName, $version);
+
+        $this->templatePath = $templatePath;
+
+        $this->addDefaultCommands();
+
+        $this->addCustomCommands();
+    }
+
+    public function addDefaultCommands(): void
+    {
+        $this->add(new MakeFile($this->templatePath));
+        $this->add(new MakeSet($this->templatePath));
+    }
+
+    public function addCustomCommands(): void
+    {
     }
 }

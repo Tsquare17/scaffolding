@@ -27,7 +27,7 @@ class MakFrom extends BaseCommand
     public function configure(): void
     {
         $this->addArgument('name', InputArgument::REQUIRED, 'Name');
-        $this->addArgument('files', InputArgument::IS_ARRAY, 'Set of template files.');
+        $this->addArgument('files', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'Set of template files.');
     }
 
     /**
@@ -39,12 +39,6 @@ class MakFrom extends BaseCommand
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $files = $input->getArgument('files');
-
-        if (empty($files)) {
-            $output->writeLn("<error>No files arguments supplied.</>");
-
-            return 0;
-        }
 
         $this->inputName = (string) $input->getArgument('name');
         $this->validateName();

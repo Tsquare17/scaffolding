@@ -11,6 +11,8 @@ class App extends Application
 {
     protected string $templatePath;
 
+    protected bool $hideDefaultCommands = false;
+
     public function __construct($templatePath, $version = '1.0.0', $appName = 'Scaffolding')
     {
         parent::__construct($appName, $version);
@@ -24,9 +26,9 @@ class App extends Application
 
     public function addDefaultCommands(): void
     {
-        $this->add(new MakeFile($this->templatePath));
-        $this->add(new MakeSet($this->templatePath));
-        $this->add(new MakFrom($this->templatePath));
+        $this->add(new MakeFile($this->templatePath, $this->hideDefaultCommands));
+        $this->add(new MakeSet($this->templatePath, $this->hideDefaultCommands));
+        $this->add(new MakFrom($this->templatePath, $this->hideDefaultCommands));
     }
 
     public function addCustomCommands(): void

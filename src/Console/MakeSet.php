@@ -14,10 +14,13 @@ class MakeSet extends BaseCommand
      * MakeController constructor.
      *
      * @param $templatePath
+     * @param $hidden
      */
-    public function __construct($templatePath)
+    public function __construct($templatePath, $hidden)
     {
         $this->setDescription('Generate files using a set of templates config files.');
+
+        $this->hidden = $hidden;
 
         parent::__construct('make:set', $templatePath);
     }
@@ -29,6 +32,8 @@ class MakeSet extends BaseCommand
     {
         $this->addArgument('name', InputArgument::REQUIRED, 'Name');
         $this->addArgument('set', InputArgument::REQUIRED, 'Path to the template set');
+
+        parent::configure();
     }
 
     /**

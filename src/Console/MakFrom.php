@@ -13,10 +13,13 @@ class MakFrom extends BaseCommand
     /**
      * MakeSetFromList constructor.
      * @param $templatePath
+     * @param $hidden
      */
-    public function __construct($templatePath)
+    public function __construct($templatePath, $hidden)
     {
         $this->setDescription('Generate files using a list of templates config files.');
+
+        $this->hidden = $hidden;
 
         parent::__construct('make:from', $templatePath);
     }
@@ -28,6 +31,8 @@ class MakFrom extends BaseCommand
     {
         $this->addArgument('name', InputArgument::REQUIRED, 'Name');
         $this->addArgument('files', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'Set of template files.');
+
+        parent::configure();
     }
 
     /**
@@ -38,7 +43,10 @@ class MakFrom extends BaseCommand
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $files = explode(' ', $input->getArgument('files'));
+        $files = $input->getArgument('files');
+        if (!is_array($files)) {
+            $files = explode(' ', $files);
+        }
 
         $this->inputName = (string) $input->getArgument('name');
         $this->validateName();

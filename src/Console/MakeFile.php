@@ -15,10 +15,13 @@ class MakeFile extends BaseCommand
      * MakeController constructor.
      *
      * @param $templatePath
+     * @param $hidden
      */
-    public function __construct($templatePath)
+    public function __construct($templatePath, $hidden)
     {
         $this->setDescription('Generate a file using a template config file.');
+
+        $this->hidden = $hidden;
 
         parent::__construct('make:file', $templatePath);
     }
@@ -30,6 +33,8 @@ class MakeFile extends BaseCommand
     {
         $this->addArgument('name', InputArgument::REQUIRED, 'Name');
         $this->addArgument('template', InputArgument::REQUIRED, 'Name of the template');
+
+        parent::configure();
     }
 
     /**

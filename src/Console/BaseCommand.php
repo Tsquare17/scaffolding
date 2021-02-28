@@ -8,12 +8,18 @@ class BaseCommand extends Command
 {
     protected string $templatePath;
     protected string $inputName = '';
+    protected bool $hidden = false;
 
     public function __construct($command, $templatePath)
     {
         $this->templatePath = $templatePath;
 
         parent::__construct($command);
+    }
+
+    public function configure(): void
+    {
+        $this->setHidden($this->hidden);
     }
 
     protected function validateName(): void

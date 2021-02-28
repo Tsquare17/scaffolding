@@ -2,17 +2,14 @@
 
 namespace Tsquare\Scaffolding\Console;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tsquare\FileGenerator\FileGenerator;
 use Tsquare\FileGenerator\FileTemplate;
 
-class MakeSet extends Command
+class MakeSet extends BaseCommand
 {
-    protected string $templatePath;
-
     /**
      * MakeController constructor.
      *
@@ -20,11 +17,9 @@ class MakeSet extends Command
      */
     public function __construct($templatePath)
     {
-        $this->templatePath = $templatePath;
-
         $this->setDescription('Generate files using a set of templates config files.');
 
-        parent::__construct('make:set');
+        parent::__construct('make:set', $templatePath);
     }
 
     /**
@@ -51,12 +46,15 @@ class MakeSet extends Command
             return 0;
         }
 
+        $this->inputName = (string) $input->getArgument('name');
+        $this->validateName();
+
         $files = array_diff(scandir($dir), ['.', '..']);
 
         foreach ($files as $file) {
             $template = FileTemplate::init($dir . '/' . $file);
 
-            $template->name($input->getArgument('name'));
+            $template->name($this->inputName);
 
             if (!$template->getAppBasePath()) {
                 $template->appBasePath(getcwd());
@@ -66,8 +64,7 @@ class MakeSet extends Command
 
             $write = $generator->create();
 
-            if (!$write) {
-                $output->writeln("<error>Failed to write to {$generator->getPathString()}</>");
+            if (!$this->validateWriteSuccess($write, $generator->getPathString(), $output)) {
                 continue;
             }
 

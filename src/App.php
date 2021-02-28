@@ -5,7 +5,7 @@ namespace Tsquare\Scaffolding;
 use Tsquare\Scaffolding\Console\MakeFile;
 use Tsquare\Scaffolding\Console\MakeSet;
 use Symfony\Component\Console\Application;
-use Tsquare\Scaffolding\Console\MakeSetFromList;
+use Tsquare\Scaffolding\Console\MakFrom;
 
 class App extends Application
 {
@@ -26,7 +26,7 @@ class App extends Application
     {
         $this->add(new MakeFile($this->templatePath));
         $this->add(new MakeSet($this->templatePath));
-        $this->add(new MakeSetFromList($this->templatePath));
+        $this->add(new MakFrom($this->templatePath));
     }
 
     public function addCustomCommands(): void

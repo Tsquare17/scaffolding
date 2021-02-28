@@ -9,10 +9,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeFile extends Command
+class MakeFile extends BaseCommand
 {
-    protected string $templatePath;
-
     /**
      * MakeController constructor.
      *
@@ -20,11 +18,9 @@ class MakeFile extends Command
      */
     public function __construct($templatePath)
     {
-        $this->templatePath = $templatePath;
-
         $this->setDescription('Generate a file using a template config file.');
 
-        parent::__construct('make:file');
+        parent::__construct('make:file', $templatePath);
     }
 
     /**
@@ -46,7 +42,10 @@ class MakeFile extends Command
     {
         $template = FileTemplate::init($this->templatePath . '/' . $input->getArgument('template') . '.php');
 
-        $template->name($input->getArgument('name'));
+        $this->inputName = (string) $input->getArgument('name');
+        $this->validateName();
+
+        $template->name($this->inputName);
 
         if (!$template->getAppBasePath()) {
             $template->appBasePath(getcwd());
@@ -56,8 +55,7 @@ class MakeFile extends Command
 
         $write = $generator->create();
 
-        if (!$write) {
-            $output->writeln("<error>Failed to write to {$generator->getPathString()}</>");
+        if (!$this->validateWriteSuccess($write, $generator->getPathString(), $output)) {
             return 0;
         }
 

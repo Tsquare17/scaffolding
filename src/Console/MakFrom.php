@@ -2,28 +2,23 @@
 
 namespace Tsquare\Scaffolding\Console;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tsquare\FileGenerator\FileGenerator;
 use Tsquare\FileGenerator\FileTemplate;
 
-class MakeSetFromList extends Command
+class MakFrom extends BaseCommand
 {
-    protected string $templatePath;
-
     /**
      * MakeSetFromList constructor.
      * @param $templatePath
      */
     public function __construct($templatePath)
     {
-        $this->templatePath = $templatePath;
-
         $this->setDescription('Generate files using a list of templates config files.');
 
-        parent::__construct('make:fromFiles');
+        parent::__construct('make:from', $templatePath);
     }
 
     /**
@@ -45,6 +40,15 @@ class MakeSetFromList extends Command
     {
         $files = $input->getArgument('files');
 
+        if (empty($files)) {
+            $output->writeLn("<error>No files arguments supplied.</>");
+
+            return 0;
+        }
+
+        $this->inputName = (string) $input->getArgument('name');
+        $this->validateName();
+
         foreach ($files as $file) {
             if (!file_exists($this->templatePath . '/' . $file)) {
                 $output->writeLn("<error>{$file} does not exist.</>");
@@ -54,7 +58,7 @@ class MakeSetFromList extends Command
 
             $template = FileTemplate::init($this->templatePath . '/' . $file);
 
-            $template->name($input->getArgument('name'));
+            $template->name($this->inputName);
 
             if (!$template->getAppBasePath()) {
                 $template->appBasePath(getcwd());
@@ -64,8 +68,7 @@ class MakeSetFromList extends Command
 
             $write = $generator->create();
 
-            if (!$write) {
-                $output->writeln("<error>Failed to write to {$generator->getPathString()}</>");
+            if (!$this->validateWriteSuccess($write, $generator->getPathString(), $output)) {
                 continue;
             }
 

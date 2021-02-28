@@ -35,7 +35,7 @@ class BaseCommand extends Command
     {
         if (!$success) {
             if (file_exists($path)) {
-                $output->writeln("<error>File already exists.</>");
+                $output->writeln("<error>{$path} already exists.</>");
 
                 return false;
             }

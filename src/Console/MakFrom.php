@@ -38,7 +38,7 @@ class MakFrom extends BaseCommand
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $files = $input->getArgument('files');
+        $files = explode(' ', $input->getArgument('files'));
 
         $this->inputName = (string) $input->getArgument('name');
         $this->validateName();

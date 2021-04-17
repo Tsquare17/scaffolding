@@ -60,6 +60,10 @@ class MakFrom extends BaseCommand
 
             $template = FileTemplate::init($this->templatePath . '/' . $file);
 
+            foreach ($this->replacementTokens() as $token => $modifier) {
+                $template->addReplacementToken($token, $modifier);
+            }
+
             $template->name($this->inputName);
 
             if (!$template->getAppBasePath()) {

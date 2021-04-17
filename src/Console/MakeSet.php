@@ -59,6 +59,10 @@ class MakeSet extends BaseCommand
         foreach ($files as $file) {
             $template = FileTemplate::init($dir . '/' . $file);
 
+            foreach ($this->replacementTokens() as $token => $modifier) {
+                $template->addReplacementToken($token, $modifier);
+            }
+
             $template->name($this->inputName);
 
             if (!$template->getAppBasePath()) {

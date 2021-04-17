@@ -46,6 +46,10 @@ class MakeFile extends BaseCommand
     {
         $template = FileTemplate::init($this->templatePath . '/' . $input->getArgument('template') . '.php');
 
+        foreach ($this->replacementTokens() as $token => $modifier) {
+            $template->addReplacementToken($token, $modifier);
+        }
+
         $this->inputName = (string) $input->getArgument('name');
         $this->validateName();
 

@@ -13,8 +13,8 @@ class MakeFile extends BaseCommand
     /**
      * MakeController constructor.
      *
-     * @param $templatePath
-     * @param $hidden
+     * @param string $templatePath
+     * @param bool $hidden
      */
     public function __construct($templatePath, $hidden)
     {
@@ -45,10 +45,6 @@ class MakeFile extends BaseCommand
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $template = FileTemplate::init($this->templatePath . '/' . $input->getArgument('template') . '.php');
-
-        foreach ($this->replacementTokens() as $token => $modifier) {
-            $template->addReplacementToken($token, $modifier);
-        }
 
         $this->inputName = (string) $input->getArgument('name');
         $this->validateName();

@@ -45,7 +45,7 @@ class App extends Application
     }
 
     /**
-     * Add custom comands.
+     * Add custom commands.
      */
     public function addCustomCommands(): void
     {

@@ -12,8 +12,8 @@ class MakFrom extends BaseCommand
 {
     /**
      * MakeSetFromList constructor.
-     * @param $templatePath
-     * @param $hidden
+     * @param string $templatePath
+     * @param bool $hidden
      */
     public function __construct($templatePath, $hidden)
     {
@@ -59,10 +59,6 @@ class MakFrom extends BaseCommand
             }
 
             $template = FileTemplate::init($this->templatePath . '/' . $file);
-
-            foreach ($this->replacementTokens() as $token => $modifier) {
-                $template->addReplacementToken($token, $modifier);
-            }
 
             $template->name($this->inputName);
 

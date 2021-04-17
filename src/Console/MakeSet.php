@@ -13,8 +13,8 @@ class MakeSet extends BaseCommand
     /**
      * MakeController constructor.
      *
-     * @param $templatePath
-     * @param $hidden
+     * @param string $templatePath
+     * @param bool $hidden
      */
     public function __construct($templatePath, $hidden)
     {
@@ -58,10 +58,6 @@ class MakeSet extends BaseCommand
 
         foreach ($files as $file) {
             $template = FileTemplate::init($dir . '/' . $file);
-
-            foreach ($this->replacementTokens() as $token => $modifier) {
-                $template->addReplacementToken($token, $modifier);
-            }
 
             $template->name($this->inputName);
 

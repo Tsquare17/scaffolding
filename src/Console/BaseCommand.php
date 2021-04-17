@@ -68,9 +68,4 @@ class BaseCommand extends Command
 
         return true;
     }
-
-    public function replacementTokens(): array
-    {
-        return [];
-    }
 }

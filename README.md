@@ -40,17 +40,17 @@ $template->fileName('{name}Extension');
 /**
  * Define the contents of the file.
  */
-$template->fileContent('
+$template->fileContent(<<<'FILE'
 namespace App\Foo\{name};
 
-$foo = \'{underscore}s\';
-$bar = \'{dash}\';
+$foo = '{underscore}s';
+$bar = '{dash}';
 
 function foo{name}() {
     return true;
 }
 
-');
+FILE);
 
 
 /*

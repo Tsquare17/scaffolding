@@ -7,12 +7,22 @@ use Tsquare\Scaffolding\Console\MakeSet;
 use Symfony\Component\Console\Application;
 use Tsquare\Scaffolding\Console\MakFrom;
 
+/**
+ * Class App
+ * @package Tsquare\Scaffolding
+ */
 class App extends Application
 {
     protected string $templatePath;
 
     protected bool $hideDefaultCommands = false;
 
+    /**
+     * App constructor.
+     * @param $templatePath
+     * @param string $version
+     * @param string $appName
+     */
     public function __construct($templatePath, $version = '1.0.0', $appName = 'Scaffolding')
     {
         parent::__construct($appName, $version);
@@ -24,6 +34,9 @@ class App extends Application
         $this->addCustomCommands();
     }
 
+    /**
+     * Add default commands.
+     */
     public function addDefaultCommands(): void
     {
         $this->add(new MakeFile($this->templatePath, $this->hideDefaultCommands));
@@ -31,6 +44,9 @@ class App extends Application
         $this->add(new MakFrom($this->templatePath, $this->hideDefaultCommands));
     }
 
+    /**
+     * Add custom comands.
+     */
     public function addCustomCommands(): void
     {
     }
